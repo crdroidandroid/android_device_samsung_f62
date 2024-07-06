@@ -20,6 +20,7 @@ function blob_fixup() {
             sed -i 's/str_parms_get_str/str_parms_get_mod/g' "${2}"
             ;;
         vendor/lib64/libexynoscamera3.so)
+            "${PATCHELF}" --add-needed libshim_camera.so "${2}"
             xxd -p "${2}" | sed "s/cc022036/1f2003d5/g" | xxd -r -p > "${2}".patched
             mv "${2}".patched "${2}"
             ;;
